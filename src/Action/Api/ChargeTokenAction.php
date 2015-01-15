@@ -9,32 +9,31 @@
  * file that was distributed with this source code.
  */
 
-namespace winzou\PayumLimonetik\Action;
+namespace winzou\PayumLimonetik\Action\Api;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
-use Payum\Core\Reply\HttpRedirect;
 use Payum\Core\Exception\RequestNotSupportedException;
-use winzou\PayumLimonetik\Request\AuthorizeToken;
+use Payum\Core\Request\Sync;
+use winzou\PayumLimonetik\Action\AbstractApiAwareAction;
+use winzou\PayumLimonetik\Request\ChargeToken;
 
-class AuthorizeAction extends AbstractApiAwareAction
+class ChargeTokenAction extends AbstractApiAwareAction
 {
     /**
      * {@inheritDoc}
-     *
-     * @throws HttpRedirect
      */
     public function execute($request)
     {
-        /** @var $request AuthorizeToken */
+        /** @var $request ChargeToken */
         RequestNotSupportedException::assertSupports($this, $request);
 
         $model = ArrayObject::ensureArrayObject($request->getModel());
 
-        if (false == $model['PaymentPageUrl']) {
-            $model->replace($this->api->PaymentOrderCreate($model->toUnsafeArray()));
-        }
+        if ('Authorized' === $model['PaymentOrder']['Status']) {
+            $this->api->PaymentOrderCharge($model['PaymentOrderId'], $model['Amount'], $model['Currency']);
 
-        throw new HttpRedirect($model['PaymentPageUrl']);
+            $this->payment->execute(new Sync($model));
+        }
     }
 
     /**
@@ -43,7 +42,7 @@ class AuthorizeAction extends AbstractApiAwareAction
     public function supports($request)
     {
         return
-            $request instanceof AuthorizeToken &&
+            $request instanceof ChargeToken &&
             $request->getModel() instanceof \ArrayAccess
         ;
     }

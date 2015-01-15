@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace spec\winzou\PayumLimonetik\Action;
+namespace spec\winzou\PayumLimonetik\Action\Api;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use PhpSpec\ObjectBehavior;
@@ -17,7 +17,7 @@ use Prophecy\Argument;
 use winzou\Limonetik\APIClient;
 use winzou\PayumLimonetik\Request\AuthorizeToken;
 
-class AuthorizeActionSpec extends ObjectBehavior
+class AuthorizeTokenActionSpec extends ObjectBehavior
 {
     protected $apiReturn = array('PaymentPageUrl' => 'http://localhost/payment_page_url');
 
@@ -28,7 +28,7 @@ class AuthorizeActionSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('winzou\PayumLimonetik\Action\AuthorizeAction');
+        $this->shouldHaveType('winzou\PayumLimonetik\Action\Api\AuthorizeTokenAction');
     }
 
     function it_should_create_order(AuthorizeToken $request, APIClient $api)

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace spec\winzou\PayumLimonetik\Action;
+namespace spec\winzou\PayumLimonetik\Action\Api;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Payment;
@@ -19,7 +19,7 @@ use Prophecy\Argument;
 use winzou\Limonetik\APIClient;
 use winzou\PayumLimonetik\Request\ChargeToken;
 
-class ChargeActionSpec extends ObjectBehavior
+class ChargeTokenActionSpec extends ObjectBehavior
 {
     function let(APIClient $api, Payment $payment)
     {
@@ -29,7 +29,7 @@ class ChargeActionSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('winzou\PayumLimonetik\Action\ChargeAction');
+        $this->shouldHaveType('winzou\PayumLimonetik\Action\Api\ChargeTokenAction');
     }
 
     function it_should_charge(ChargeToken $request, APIClient $api, Payment $payment)

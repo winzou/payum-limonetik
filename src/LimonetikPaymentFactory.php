@@ -15,9 +15,9 @@ use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\PaymentFactory as CorePaymentFactory;
 use Payum\Core\PaymentFactoryInterface;
 use winzou\Limonetik\APIClient;
-use winzou\PayumLimonetik\Action\AuthorizeAction;
+use winzou\PayumLimonetik\Action\Api\AuthorizeTokenAction;
+use winzou\PayumLimonetik\Action\Api\ChargeTokenAction;
 use winzou\PayumLimonetik\Action\CaptureAction;
-use winzou\PayumLimonetik\Action\ChargeAction;
 use winzou\PayumLimonetik\Action\FillOrderDetailsAction;
 use winzou\PayumLimonetik\Action\PaymentDetailsSyncAction;
 use winzou\PayumLimonetik\Action\StatusAction;
@@ -69,8 +69,8 @@ class LimonetikPaymentFactory implements PaymentFactoryInterface
             'payum.action.fill_order_details' => new FillOrderDetailsAction(),
             'payum.action.status'             => new StatusAction(),
             'payum.action.sync'               => new PaymentDetailsSyncAction(),
-            'payum.action.authorize'          => new AuthorizeAction(),
-            'payum.action.charge'             => new ChargeAction(),
+            'payum.action.authorize'          => new AuthorizeTokenAction(),
+            'payum.action.charge'             => new ChargeTokenAction(),
         ));
 
         if (false == $config['payum.api']) {

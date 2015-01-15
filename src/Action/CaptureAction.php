@@ -18,6 +18,7 @@ use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Exception\UnsupportedApiException;
 use Payum\Core\Request\Capture;
 use Payum\Core\Request\Sync;
+use Payum\Core\Security\TokenInterface;
 use winzou\Limonetik\APICLient;
 use winzou\PayumLimonetik\Request\AuthorizeToken;
 use winzou\PayumLimonetik\Request\ChargeToken;
@@ -75,7 +76,8 @@ class CaptureAction extends PaymentAwareAction implements ApiAwareInterface
     {
         return
             $request instanceof Capture &&
-            $request->getModel() instanceof \ArrayAccess
+            $request->getModel() instanceof \ArrayAccess &&
+            $request->getToken() instanceof TokenInterface
         ;
     }
 }

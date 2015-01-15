@@ -1,0 +1,34 @@
+{
+  "name": "winzou/payum-limonetik",
+  "type": "library",
+  "description": "Limonetik extension for Payum",
+  "keyword": ["payum", "limonetik", "payment"],
+  "homepage": "https://github.com/winzou/payum-limonetik",
+  "license": "MIT",
+  "authors": [
+    {
+      "name":     "Alexandre Bacco",
+      "email":    "alexandre.bacco@gmail.com",
+      "homepage": "http://alex.bacco.fr"
+    }
+  ],
+  "require": {
+    "php":                      ">=5.3.3",
+    "payum/core":               "~0.13.0",
+    "winzou/limonetik-php-api": "@dev"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "~2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "winzou\\PayumLimonetik\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": { "spec\\winzou\\PayumLimonetik\\": "spec/" }
+  },
+  "config": {
+    "bin-dir": "bin"
+  }
+}

@@ -1,8 +1,10 @@
 <?php
+//config.php
 
 use Payum\Core\Bridge\Buzz\ClientFactory;
+use Payum\Core\Bridge\PlainPhp\Security\HttpRequestVerifier;
+use Payum\Core\Bridge\PlainPhp\Security\TokenFactory;
 use Payum\Core\Registry\SimpleRegistry;
-use Payum\Core\Security\PlainHttpRequestVerifier;
 use Payum\Core\Security\GenericTokenFactory;
 use Payum\Core\Storage\FilesystemStorage;
 use winzou\PayumLimonetik\LimonetikPaymentFactory;
@@ -31,14 +33,14 @@ $payum = new SimpleRegistry($payments, $storages);
 
 $tokenStorage = new FilesystemStorage('./token', 'Payum\Core\Model\Token', 'hash');
 
-$requestVerifier = new PlainHttpRequestVerifier($tokenStorage);
+$requestVerifier = new HttpRequestVerifier($tokenStorage);
 
 $tokenFactory = new GenericTokenFactory(
-    $tokenStorage,
-    $payum,
-    'https://localhost',
-    'payum-limonetik/examples/capture.php',
-    'payum-limonetik/examples/notify.php',
-    'payum-limonetik/examples/authorize.php',
-    'payum-limonetik/examples/refund.php'
+    new TokenFactory($tokenStorage, $payum),
+    array(
+        'capture'   => 'payum-limonetik/examples/capture.php',
+        'notify'    => 'payum-limonetik/examples/notify.php',
+        'authorize' => 'payum-limonetik/examples/authorize.php',
+        'refund'    =>'payum-limonetik/examples/refund.php'
+    )
 );

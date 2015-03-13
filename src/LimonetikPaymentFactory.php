@@ -80,13 +80,13 @@ class LimonetikPaymentFactory implements PaymentFactoryInterface
                 'sandbox'   => true,
             );
             $config->defaults($config['payum.default_options']);
-            $config['payum.required_options'] = array('merchantId', 'key', 'sandbox');
+            $config['payum.required_options'] = array('merchant_id', 'key', 'sandbox');
 
             $config['payum.api'] = function (ArrayObject $config) {
                 $config->validateNotEmpty($config['payum.required_options']);
 
                 $apiConfig = array(
-                    'merchantId' => $config['merchantId'],
+                    'merchantId' => $config['merchant_id'],
                     'key'        => $config['key'],
                     'sandbox'    => $config['sandbox'],
                 );

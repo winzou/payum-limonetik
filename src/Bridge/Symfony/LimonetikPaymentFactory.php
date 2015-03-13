@@ -12,7 +12,6 @@
 namespace winzou\PayumLimonetik\Bridge\Symfony;
 
 use Payum\Bundle\PayumBundle\DependencyInjection\Factory\Payment\AbstractPaymentFactory;
-use Payum\Core\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
@@ -21,18 +20,6 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 class LimonetikPaymentFactory extends AbstractPaymentFactory
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function create(ContainerBuilder $container, $contextName, array $config)
-    {
-        if (false == class_exists('winzou\PayumLimonetik\LimonetikPaymentFactory')) {
-            throw new RuntimeException('Cannot find Limonetik payment factory class. Have you installed winzou/payum-limonetik package?');
-        }
-
-        return parent::create($container, $contextName, $config);
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -74,5 +61,21 @@ class LimonetikPaymentFactory extends AbstractPaymentFactory
         $container->setDefinition($apiId, $apiDefinition);
 
         $paymentDefinition->addMethodCall('addApi', array(new Reference($apiId)));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getPayumPaymentFactoryClass()
+    {
+        return 'winzou\PayumLimonetik\LimonetikPaymentFactory';
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getComposerPackage()
+    {
+        return 'winzou/payum-limonetik';
     }
 }

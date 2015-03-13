@@ -20,7 +20,7 @@ $storages = array(
 );
 
 $paymentFactory = new LimonetikPaymentFactory(array(
-    'merchantId'  => 'your-id',
+    'merchant_id' => 'your-id',
     'key'         => 'your-key',
     'sandbox'     => true,
     'buzz.client' => $curl

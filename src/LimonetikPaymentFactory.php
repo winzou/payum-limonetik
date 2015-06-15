@@ -83,7 +83,7 @@ class LimonetikPaymentFactory implements PaymentFactoryInterface
             $config['payum.required_options'] = array('merchant_id', 'key', 'sandbox');
 
             $config['payum.api'] = function (ArrayObject $config) {
-                $config->validateNotEmpty($config['payum.required_options']);
+                $config->validatedKeysSet($config['payum.required_options']);
 
                 $apiConfig = array(
                     'merchantId' => $config['merchant_id'],

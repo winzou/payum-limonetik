@@ -14,7 +14,7 @@
   ],
   "require": {
     "php":                      ">=5.3.3",
-    "payum/core":               "~0.14",
+    "payum/core":               "~0.14.0",
     "winzou/limonetik-php-api": "@dev"
   },
   "require-dev": {
